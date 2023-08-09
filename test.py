@@ -1,4 +1,10 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+chrome_options = Options()
+chrome_options.add_experimental_option("detach", True)
 
-browser = webdriver.Chrome()
-browser.get("http://naver.com")
+
+
+bw = webdriver.Chrome(options=chrome_options)
+
+bw.get("http://naver.com")
