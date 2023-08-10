@@ -1,26 +1,18 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
-chrome_options = Options()
-chrome_options.add_experimental_option("detach", True)
-# chrome_options.add_argument("--headless")
-# chrome_options.add_argument("--disable-dev-shm-usage")
-# chrome_options.add_argument("--no-sandbox")
+options = Options()
+options.add_experimental_option("detach",True)#브라우저 바로닫힘 방지
+options.add_experimental_option("excludeSwitches",["emable-logging"])#알림방지
+options.add_argument("--start-maximized")#화면최대크기
+options.add_argument("--disable-blink-features=AutomationControlled")#자동화아님으로 눈속임
+# driver = ChromeDriverManager().install() #버전3용
+service = Service(ChromeDriverManager().install()) #버전4용
 
+driver = webdriver.Chrome(service=service,options=options)
 
-driver = webdriver.Chrome(options=chrome_options)
-driver.get(url='https://www.google.com/')
+driver.get("http://naver.com")
 
-#어떤 element를 찾을 수 있는지를 최대 5초 동안 매 0.5초마다 시도한다. 
-# expected_conditions(EC)는 만약 element를 찾을 수 있었으면 True를, 아니라면 False를 반환한다.
-try:
-    element = WebDriverWait(driver, 100).until(
-        # EC.presence_of_element_located((By.CLASS_NAME, 'gLFyf'))   
-        EC.presence_of_element_located((By.CLASS_NAME, 'gb_Ad')) 
-    )
-    print(element)
-finally:
-    driver.quit()
+# driver.quit()#화면닫기
