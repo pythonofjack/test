@@ -11,8 +11,7 @@ options.add_argument("--disable-blink-features=AutomationControlled")#자동화�
 # driver = ChromeDriverManager().install() #버전3용
 service = Service(ChromeDriverManager().install()) #버전4용
 
-# driver = webdriver.Chrome(service=service, options=options)
-driver = webdriver.Chrome(service=service,options=options)
+driver = webdriver.Chrome(service=service, options=options)
 
 driver.get("http://naver.com")
 
