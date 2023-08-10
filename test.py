@@ -1,10 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-chrome_options = Options()
-chrome_options.add_experimental_option("detach", True)
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
+options = Options()
+options.add_experimental_option("detach",True)#브라우저 바로닫힘 방지
 
+# chrome_driver = ChromeDriverManager().install() #버전3용
+service = Service(ChromeDriverManager().install()) #버전4용
 
-bw = webdriver.Chrome(options=chrome_options)
+driver = webdriver.Chrome(service=service,options=options)
 
-bw.get("http://naver.com")
+driver.get("http://naver.com")
