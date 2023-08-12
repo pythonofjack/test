@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 # from webdriver_manager.chrome import ChromeDriverManager
 import time
+import datetime
 
 options = Options()
 options.add_experimental_option("detach",True)#브라우저 바로닫힘 방지
@@ -15,9 +16,14 @@ options.add_argument("--disable-blink-features=AutomationControlled")#자동화�
 # service = Service(ChromeDriverManager().install()) #버전4용
 driver = webdriver.Chrome(options=options)
 
+now = datetime.datetime.now()
+now_date = now.date()
+
 def start(func):
     def wrapper(*args, **kwargs):
-        url = "http://naver.com"
+        url1 = "https://timeline.google.com/maps/timeline?hl=ko&authuser=0&pli=1&rapt=AEjHL4Md0l0bTPUN09M83ts9bGQmZOzvywKHHHA3BOaE-UVkdahOqlifgOYR24v241o9O9YlQ0kORnyEqvNQE8lG9uYhjg8HIw&pb=!1m2!1m1!1s"
+        url2 = str(now_date)
+        url = url1+url2
         driver.get(url)
         time.sleep(1)
         func(*args, **kwargs)
