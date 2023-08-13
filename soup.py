@@ -59,7 +59,7 @@ def search():
 def google_news():
     header = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"}
 
-    url1 = "https://news.google.com/home?hl=ko&gl=KR&ceid=KR:ko"
+    url1 = "https://www.naver.com"
     # url2 = str(now_date)
     # url = url1+url2
     res = requests.get(url1)
@@ -68,6 +68,21 @@ def google_news():
     print(soup.get_text())
     print(soup.find("a")["href"])
 
+
+def google_movie():
+    url = "https://play.google.com/store/movies/category/MOVIE?hl=ko&gl=us"
+    header = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+              ,"Accept-Language":"ko-KR,ko"}
+
+    res = requests.get(url,headers=header)
+    res.raise_for_status()
+    soup = BeautifulSoup(res.text, "lxml")
+    movies = soup.find_all("div",attrs={"class":"ULeU3b neq64b"})
+    for m in movies:
+        title = m.find("div",attrs={"class":"Epkrse"}).get_text()
+        print(title)
+
+
 # search()
 # time_line()
-google_news()
+google_movie()
