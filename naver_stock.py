@@ -20,13 +20,32 @@ options.add_argument("--disable-blink-features=AutomationControlled")#자동화�
 options.add_argument("User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
 
 
-url = "https://timeline.google.com/maps/timeline?hl=ko&authuser=0&pli=1&rapt=AEjHL4NoDZCRdfZtNrrqCgKRLlmYtmRgFBKI8ko_9AATpFGkVQXV1CKDSPBFvmPkcZ2Gi3GMBSgEKTbIa6PFX0We4eVd8l4ISQ&pb"
-bw = webdriver.Chrome(options=options)
-bw.get(url)
-bw.find_element(By.XPATH,("//*[@id='identifierId']")).send_keys("javaofjk")
-bw.find_element(By.XPATH,("//*[@id='identifierNext']/div/button/span")).click()
-WebDriverWait(bw,10).until(EC.presence_of_element_located((By.XPATH,"//*[@id='password']/div[1]/div/div[1]/div")))
-bw.find_element(By.XPATH,("//*[@id='password']/div[1]/div/div[1]/div")).send_keys("ak382525")
+
+def url_finance():    
+    url = "https://finance.naver.com/"
+    return url
+
+def login(url):
+    bw = webdriver.Chrome(options=options)
+    bw.get(url)
+    # bw.find_element(By.XPATH,("//*[@id='gnb_login_button']/span[3]")).click()
+    # bw.find_element(By.ID,("id")).send_keys("ozeek")
+    # bw.find_element(By.ID,("pw")).send_keys("wjdwlrnjs72++")
+    # bw.find_element(By.ID,("log.login")).click()
+
+def break_news(url):
+    bw = webdriver.Chrome(options=options)
+    bw.get(url)
+    bw.find_element(By.XPATH,('//*[@id="content"]/div[1]/div[1]/div[1]/div/a/em')).click()
+    bw.find_element(By.XPATH,('//*[@id="newarea"]/div[1]/ul/li[3]/a/strong')).click()
+    news = bw.find_elements(By.TAG_NAME,('a'))
+    for n in news:
+        print(n.get_attribute("title"))
+        print(n.get_attribute("href"))
 
 
 
+
+
+# login(url_finance())
+break_news(url_finance())
